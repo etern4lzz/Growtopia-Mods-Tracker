@@ -3,7 +3,7 @@
 Sebuah moderator tracker sederhana untuk growtopia
 dibuat dengan node js dan depedensi axios
 
-#Big Thanks to
+## Big Thanks to
 
 [Rzky Xy](https://github.com/RzkyXy)
 
