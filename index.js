@@ -4,8 +4,7 @@ const apiUrl = 'https://api.noire.my.id/api';
 const webhookUrl = '';
 
 const statusEmoji = {
-    Online: '<:online_badge:1408830118092345434>', 
-    Offline: '<:orange_dot:1408830083157721139>', 
+    Online: '<:online_badge:1408830118092345434>',
     Undercover: '<:dnd_badge:1408830103701684376>' 
 };
 
