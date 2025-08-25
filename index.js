@@ -5,14 +5,8 @@ const webhookUrl = 'https://discord.com/api/webhooks/1409019968086999081/SzAeta2
 const [ webhookId, webhookToken ] = webhookUrl.split('/').slice(-2);
 
 const statusEmoji = {
-<<<<<<< HEAD
     Online: '<:online_badge:1408830118092345434>',
-    Undercover: '<:dnd_badge:1408830103701684376>' 
-=======
-    Online: '<:online_badge:1409052165003022387>', 
-    Offline: '<:orange_dot:1409052307454431233>', 
-    Undercover: '<:dnd_badge:1409052037278208101>' 
->>>>>>> 9a2fad8 (Updated the system of webhook)
+    Undercover: '<:dnd_badge:1408830103701684376>'
 };
 
 let sendCount = 0;
