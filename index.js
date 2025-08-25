@@ -1,14 +1,22 @@
 const axios = require('axios');
 
 const apiUrl = 'https://api.noire.my.id/api';
-const webhookUrl = '';
+const webhookUrl = 'https://discord.com/api/webhooks/1409019968086999081/SzAeta2Xd1uSL_2dQfkE7wKKh4iV8YY9syHS8Qq0XeuzdQlViW2ns9A0RBioxNQ-ylXK';
+const [ webhookId, webhookToken ] = webhookUrl.split('/').slice(-2);
 
 const statusEmoji = {
+<<<<<<< HEAD
     Online: '<:online_badge:1408830118092345434>',
     Undercover: '<:dnd_badge:1408830103701684376>' 
+=======
+    Online: '<:online_badge:1409052165003022387>', 
+    Offline: '<:orange_dot:1409052307454431233>', 
+    Undercover: '<:dnd_badge:1409052037278208101>' 
+>>>>>>> 9a2fad8 (Updated the system of webhook)
 };
 
 let sendCount = 0;
+let messageId = null;
 
 async function trackMods() {
     try {
@@ -33,7 +41,7 @@ async function trackMods() {
                                     let updated = m.updated && Number.isInteger(m.updated) 
                                         ? `<t:${m.updated}:R>` 
                                         : "N/A";
-                                    return `${statusEmoji[m.status] || '⚪'} **${m.name || 'Unknown'}** • ${m.status} • ${updated}`;
+                                    return `${statusEmoji[m.status] || '⚪'} **${m.name || 'Unknown'}** (${m.status}) • ${updated}`;
                                 }).join("\n")
                                 : "Tidak ada mod online.",
                             inline: false
@@ -48,12 +56,23 @@ async function trackMods() {
             ]
         };
 
-        await axios.post(webhookUrl, payload, {
-            headers: { 'Content-Type': 'application/json' }
-        });
-        
+        if (!messageId) {
+            // Kirim pertama kali
+            const sendRes = await axios.post(`${webhookUrl}?wait=true`, payload, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+            messageId = sendRes.data.id;
+            console.log(`📩 Pesan inisiasi dikirim, ID: ${messageId}`);
+        } else {
+            // Update pesan lama
+            await axios.patch(
+                `https://discord.com/api/webhooks/${webhookId}/${webhookToken}/messages/${messageId}`,
+                payload,
+                { headers: { 'Content-Type': 'application/json' } }
+            );
+        }
+
         sendCount++;
-        console.log(`✅ Webhook terkirim: ${sendCount}x`);
     } catch (err) {
         console.error("❌ Error:", err.response?.data || err.message);
     }
