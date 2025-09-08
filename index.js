@@ -1,12 +1,12 @@
 const axios = require('axios');
 
-const apiUrl = 'https://api.noire.my.id/api';
-const webhookUrl = 'https://discord.com/api/webhooks/1409019968086999081/SzAeta2Xd1uSL_2dQfkE7wKKh4iV8YY9syHS8Qq0XeuzdQlViW2ns9A0RBioxNQ-ylXK';
+const apiUrl = '';
+const webhookUrl = '';
 const [ webhookId, webhookToken ] = webhookUrl.split('/').slice(-2);
 
 const statusEmoji = {
-    Online: '<:online_badge:1408830118092345434>',
-    Undercover: '<:dnd_badge:1408830103701684376>'
+    Online: '<:online_badge:1409052165003022387>',
+    Undercover: '<:dnd_badge:1409052037278208101>'
 };
 
 let sendCount = 0;
@@ -15,7 +15,8 @@ let messageId = null;
 async function trackMods() {
     try {
         const res = await axios.get(apiUrl, {
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
+            timeout: 10000
         });
         
         const data = res.data;
@@ -37,7 +38,7 @@ async function trackMods() {
                                         : "N/A";
                                     return `${statusEmoji[m.status] || '⚪'} **${m.name || 'Unknown'}** (${m.status}) • ${updated}`;
                                 }).join("\n")
-                                : "Tidak ada mod online.",
+                                : "<:info:1409553599155146872> Tidak ada mod online.",
                             inline: false
                         }
                     ],
